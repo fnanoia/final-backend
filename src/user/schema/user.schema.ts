@@ -6,7 +6,7 @@ import { IUser } from '../interface/user.interface';
 export type UserDocument = HydratedDocument<User>;
 export interface IUserDocument extends IUser, mongoose.Document {}
 
-@Schema()
+@Schema({ timestamps: true })
 export class User implements IUser {
   @Prop()
   firstName: string;

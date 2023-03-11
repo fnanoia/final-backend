@@ -7,7 +7,7 @@ import { ICart } from '../interface/cart.interface';
 export type CartDocument = HydratedDocument<Cart>;
 export interface ICartDocument extends ICart, mongoose.Document {}
 
-@Schema()
+@Schema({ timestamps: true })
 export class Cart implements ICart {
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Order' })
   order: Order;

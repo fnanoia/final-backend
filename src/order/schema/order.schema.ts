@@ -7,7 +7,7 @@ import { IOrder } from '../interface/order.interface';
 export type OrderDocument = HydratedDocument<Order>;
 export interface IOrderDocument extends IOrder, mongoose.Document {}
 
-@Schema()
+@Schema({ timestamps: true })
 export class Order implements IOrder {
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
   user: User;
