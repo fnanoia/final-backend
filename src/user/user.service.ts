@@ -1,26 +1,116 @@
-import { Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  HttpException,
+  HttpStatus,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { User } from './schema/user.schema';
 
 @Injectable()
 export class UserService {
-  create(createUserDto: CreateUserDto) {
-    return 'This action adds a new user';
+  constructor(@InjectModel(User.name) private userModel: Model<any>) {}
+
+  async create(createUserDto: CreateUserDto) {
+    try {
+      const user = await this.userModel.create(createUserDto);
+      return { user, message: 'User created successfully' };
+    } catch (error: any) {
+      //throw new BadRequestException({
+      //  message: 'Error creating user',
+      //  cause: err,
+      //});
+      throw new HttpException(
+        {
+          status: HttpStatus.BAD_REQUEST,
+          error: 'Error creating user',
+        },
+        HttpStatus.BAD_REQUEST,
+        { cause: error },
+      )
+    }
   }
 
-  findAll() {
-    return `This action returns all user`;
+  async findAll() {
+    try {
+      const users = await this.userModel.find();
+      return users;
+    } catch (error: any) {
+      //throw new NotFoundException({ message: 'Users not found', cause: err });
+      throw new HttpException(
+        {
+          status: HttpStatus.NOT_FOUND,
+          error: 'Users not found',
+        },
+        HttpStatus.NOT_FOUND,
+        { cause: error },
+      )
+    }
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
+  async findOne(id: string) {
+    try {
+      const user = await this.userModel.findOne({ _id: id });
+      return user;
+    } catch (error: any) {
+      //throw new NotFoundException({ message: 'User not found', cause: err });
+      throw new HttpException(
+        {
+          status: HttpStatus.NOT_FOUND,
+          error: 'User not found',
+        },
+        HttpStatus.NOT_FOUND,
+        { cause: error },
+      )
+    }
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+  async updateOne(id: string, updateUserDto: UpdateUserDto) {
+    try {
+      const checkUser = await this.findOne(id);
+      if (!checkUser) {
+        throw new NotFoundException({ message: 'User not found' });
+      }
+
+      const user = await this.userModel.findOneAndUpdate(
+        { _id: id },
+        updateUserDto,
+        { new: true },
+      );
+
+      return { user, message: 'User updated successfully' };
+    } catch (error: any) {
+      //throw new BadRequestException({message: 'Error updating user',cause: err,});
+      throw new HttpException(
+        {
+          status: HttpStatus.BAD_REQUEST,
+          error: 'Error updating user',
+        },
+        HttpStatus.BAD_REQUEST,
+        { cause: error },
+      )
+    }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} user`;
+  async deleteOne(id: string) {
+    try {
+      const user = await this.userModel.findOneAndDelete({ _id: id });
+
+      return { user, message: 'User deleted successfully' };
+    } catch (error: any) {
+      //throw new BadRequestException({ message: 'Error deleting user', cause: err, });
+      throw new HttpException(
+        {
+          status: HttpStatus.BAD_REQUEST,
+          error: 'Error deleting user',
+        },
+        HttpStatus.BAD_REQUEST,
+        { cause: error },
+      )
+    }
   }
 }
