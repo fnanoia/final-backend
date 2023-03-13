@@ -5,6 +5,7 @@ import {
   IsMongoId,
   IsEmail,
   IsStrongPassword,
+  IsOptional,
 } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { ICartDocument } from 'src/cart/schema/cart.schema';
@@ -26,12 +27,12 @@ export class CreateUserDto implements IUser{
     email: string;
 
     @ApiProperty()
-    @IsStrongPassword()
+    //@IsStrongPassword()
     @IsNotEmpty()
     password: string;
 
     @ApiProperty()
     @IsMongoId()
-    @IsNotEmpty()
+    @IsOptional()
     cart?: ICartDocument['_id'];
 }

@@ -12,6 +12,19 @@ SERVICES
 
 CONTROLLERS
 
+ok: user
+ok: product
 
+#user
+AUTH
+	JWT
 
+TESTING
+	THUNDER CLIENT
+        ok:user
+        ok:product
+	SWAGGER
+
+MIDDLEWARES
+    PROTECTED ROUTES, ADMIN 
 

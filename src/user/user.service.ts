@@ -1,5 +1,4 @@
 import {
-  BadRequestException,
   HttpException,
   HttpStatus,
   Injectable,
@@ -20,10 +19,6 @@ export class UserService {
       const user = await this.userModel.create(createUserDto);
       return { user, message: 'User created successfully' };
     } catch (error: any) {
-      //throw new BadRequestException({
-      //  message: 'Error creating user',
-      //  cause: err,
-      //});
       throw new HttpException(
         {
           status: HttpStatus.BAD_REQUEST,
@@ -31,7 +26,7 @@ export class UserService {
         },
         HttpStatus.BAD_REQUEST,
         { cause: error },
-      )
+      );
     }
   }
 
@@ -40,7 +35,6 @@ export class UserService {
       const users = await this.userModel.find();
       return users;
     } catch (error: any) {
-      //throw new NotFoundException({ message: 'Users not found', cause: err });
       throw new HttpException(
         {
           status: HttpStatus.NOT_FOUND,
@@ -48,7 +42,7 @@ export class UserService {
         },
         HttpStatus.NOT_FOUND,
         { cause: error },
-      )
+      );
     }
   }
 
@@ -57,7 +51,6 @@ export class UserService {
       const user = await this.userModel.findOne({ _id: id });
       return user;
     } catch (error: any) {
-      //throw new NotFoundException({ message: 'User not found', cause: err });
       throw new HttpException(
         {
           status: HttpStatus.NOT_FOUND,
@@ -65,7 +58,7 @@ export class UserService {
         },
         HttpStatus.NOT_FOUND,
         { cause: error },
-      )
+      );
     }
   }
 
@@ -84,7 +77,6 @@ export class UserService {
 
       return { user, message: 'User updated successfully' };
     } catch (error: any) {
-      //throw new BadRequestException({message: 'Error updating user',cause: err,});
       throw new HttpException(
         {
           status: HttpStatus.BAD_REQUEST,
@@ -92,7 +84,7 @@ export class UserService {
         },
         HttpStatus.BAD_REQUEST,
         { cause: error },
-      )
+      );
     }
   }
 
@@ -102,7 +94,6 @@ export class UserService {
 
       return { user, message: 'User deleted successfully' };
     } catch (error: any) {
-      //throw new BadRequestException({ message: 'Error deleting user', cause: err, });
       throw new HttpException(
         {
           status: HttpStatus.BAD_REQUEST,
@@ -110,7 +101,7 @@ export class UserService {
         },
         HttpStatus.BAD_REQUEST,
         { cause: error },
-      )
+      );
     }
   }
 }
