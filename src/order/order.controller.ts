@@ -31,12 +31,12 @@ export class OrderController {
   }
 
   @Put(':id')
-  update(@Param('id') id: string, @Body() updateOrderDto: UpdateOrderDto) {
+  updateOne(@Param('id') id: string, @Body() updateOrderDto: UpdateOrderDto) {
     return this.orderService.updateOne(id, updateOrderDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  deleteOne(@Param('id') id: string) {
     return this.orderService.deleteOne(id);
   }
 }

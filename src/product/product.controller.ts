@@ -23,12 +23,12 @@ export class ProductController {
   }
 
   @Put(':id')
-  update(@Param('id') id: string, @Body() updateProductDto: UpdateProductDto) {
+  updateOne(@Param('id') id: string, @Body() updateProductDto: UpdateProductDto) {
     return this.productService.updateOne(id, updateProductDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  deleteOne(@Param('id') id: string) {
     return this.productService.deleteOne(id);
   }
 }

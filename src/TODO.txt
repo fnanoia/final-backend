@@ -7,22 +7,26 @@
    //// VALIDATORS
     ////SWAGGER INTERGRATION
 
-SERVICES
-    ERROR HANDLING
+////SERVICES
+    ////ERROR HANDLING
 
-CONTROLLERS
+/////CONTROLLERS
 
 ok: user
 ok: product
+ok: order
+ok: cart
 
 #user
 AUTH
 	JWT
 
 TESTING
-	THUNDER CLIENT
+	////THUNDER CLIENT
         ok:user
         ok:product
+        ok: order
+        ok: cart
 	SWAGGER
 
 MIDDLEWARES

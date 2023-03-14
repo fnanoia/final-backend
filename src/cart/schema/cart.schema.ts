@@ -12,8 +12,8 @@ export class Cart implements ICart {
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Order' })
   order: Order;
 
-  @Prop()
-  is_active: boolean;
+  //@Prop()
+  //is_active: boolean;
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
   user: User;
