@@ -1,6 +1,8 @@
 import {
+  forwardRef,
   HttpException,
   HttpStatus,
+  Inject,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
@@ -49,6 +51,22 @@ export class UserService {
   async findOne(id: string) {
     try {
       const user = await this.userModel.findOne({ _id: id });
+      return user;
+    } catch (error: any) {
+      throw new HttpException(
+        {
+          status: HttpStatus.NOT_FOUND,
+          error: 'User not found',
+        },
+        HttpStatus.NOT_FOUND,
+        { cause: error },
+      );
+    }
+  }
+
+  async findOneByEmail(email: string) {
+    try {
+      const user = await this.userModel.findOne({ email: email });
       return user;
     } catch (error: any) {
       throw new HttpException(

@@ -26,6 +26,8 @@ ok: cart
     products.
 
 #user
+///HASH PWD
+
 AUTH
 	JWT
 

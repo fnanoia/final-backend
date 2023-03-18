@@ -8,6 +8,8 @@ import { UserModule } from './user/user.module';
 import { ProductModule } from './product/product.module';
 import { CartModule } from './cart/cart.module';
 import { OrderModule } from './order/order.module';
+import { BcryptModule } from './bcrypt/bcrypt.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -27,6 +29,8 @@ import { OrderModule } from './order/order.module';
     ProductModule,
     CartModule,
     OrderModule,
+    BcryptModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
