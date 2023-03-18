@@ -1,20 +1,55 @@
 import {
+  forwardRef,
   HttpException,
   HttpStatus,
+  Inject,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { ProductService } from 'src/product/product.service';
+import { UserService } from 'src/user/user.service';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { UpdateOrderDto } from './dto/update-order.dto';
 import { Order } from './schema/order.schema';
 
 @Injectable()
 export class OrderService {
+  @Inject(forwardRef(() => UserService)) private userService: UserService;
+  @Inject(forwardRef(() => ProductService))
+  private productService: ProductService;
+
   constructor(@InjectModel(Order.name) private orderModel: Model<any>) {}
 
   async create(createOrderDto: CreateOrderDto) {
+    //validate user in BBDD
+    const checkUser = await this.userService.findOne(createOrderDto.user);
+    if (!checkUser) {
+      throw new HttpException(
+        {
+          status: HttpStatus.NOT_FOUND,
+          error: 'User not found',
+        },
+        HttpStatus.NOT_FOUND,
+      );
+    }
+
+    //validate if every product exists in BBDD
+    const prodArray = createOrderDto.products;
+    for (let index = 0; index < prodArray.length; index++) {
+      const checkProduct = await this.productService.findOne(prodArray[index]);
+      if (!checkProduct) {
+        throw new HttpException(
+          {
+            status: HttpStatus.NOT_FOUND,
+            error: 'Product not found',
+          },
+          HttpStatus.NOT_FOUND,
+        );
+      }
+    }
+
     try {
       const order = await this.orderModel.create(createOrderDto);
       return { order, message: 'Order created successfully' };

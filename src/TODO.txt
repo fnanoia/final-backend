@@ -16,6 +16,14 @@ ok: user
 ok: product
 ok: order
 ok: cart
+    // VALIDACIONES PARA SABER SI UN USUARIO EXISTE EN LA BBDD, Y NO PERMITIR CREAR UN CARRITO A UN USUARIO QUE NO EXISTE  
+    // LO MISMO CON ORDENES
+
+///export services
+    user.
+    cart.
+    order.
+    products.
 
 #user
 AUTH

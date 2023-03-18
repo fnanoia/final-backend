@@ -15,14 +15,9 @@ async function bootstrap() {
   const config = new DocumentBuilder()
     .setTitle('API Documentation')
     .setVersion('1.0')
-    .addTag('products')
     .build();
 
-  const document = SwaggerModule.createDocument(app, config, {
-    include: [
-      // modulos de entidades para documentar
-    ],
-  });
+  const document = SwaggerModule.createDocument(app, config);
 
   SwaggerModule.setup('/api/docs', app, document);
 

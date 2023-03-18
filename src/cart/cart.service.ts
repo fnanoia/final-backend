@@ -1,20 +1,51 @@
 import {
+  forwardRef,
   HttpException,
   HttpStatus,
+  Inject,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { OrderService } from 'src/order/order.service';
+import { UserService } from 'src/user/user.service';
 import { CreateCartDto } from './dto/create-cart.dto';
 import { UpdateCartDto } from './dto/update-cart.dto';
 import { Cart } from './schema/cart.schema';
 
 @Injectable()
 export class CartService {
+  @Inject(forwardRef(() => OrderService)) private orderService: OrderService;
+  @Inject(forwardRef(() => UserService)) private userService: UserService;
+
   constructor(@InjectModel(Cart.name) private cartModel: Model<any>) {}
 
   async create(createCartDto: CreateCartDto) {
+    //validate order in BBDD
+    const checkOrder = await this.orderService.findOne(createCartDto.order);
+    if (!checkOrder) {
+      throw new HttpException(
+        {
+          status: HttpStatus.NOT_FOUND,
+          error: 'Order not found',
+        },
+        HttpStatus.NOT_FOUND,
+      );
+    }
+
+    //validate user in BBDD
+    const checkUser = await this.userService.findOne(createCartDto.user);
+    if (!checkUser) {
+      throw new HttpException(
+        {
+          status: HttpStatus.NOT_FOUND,
+          error: 'User not found',
+        },
+        HttpStatus.NOT_FOUND,
+      );
+    }
+
     try {
       const cart = await this.cartModel.create(createCartDto);
       return { cart, message: 'Cart created successfully' };
