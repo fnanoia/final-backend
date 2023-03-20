@@ -1,4 +1,9 @@
-import { Module } from '@nestjs/common';
+import {
+  MiddlewareConsumer,
+  Module,
+  NestModule,
+  RequestMethod,
+} from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { AppController } from './app.controller';
@@ -10,6 +15,9 @@ import { CartModule } from './cart/cart.module';
 import { OrderModule } from './order/order.module';
 import { BcryptModule } from './bcrypt/bcrypt.module';
 import { AuthModule } from './auth/auth.module';
+import { RoleMiddleware } from './middlewares/role.middleware';
+import { UserController } from './user/user.controller';
+import { ProductController } from './product/product.controller';
 
 @Module({
   imports: [
@@ -35,4 +43,15 @@ import { AuthModule } from './auth/auth.module';
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply(RoleMiddleware)
+      .exclude(
+        { path: 'user', method: RequestMethod.GET },
+        { path: 'user', method: RequestMethod.POST },
+        { path: 'user', method: RequestMethod.PUT },
+      )
+      .forRoutes(UserController);
+  }
+}

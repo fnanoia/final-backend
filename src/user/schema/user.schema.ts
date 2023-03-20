@@ -20,6 +20,9 @@ export class User implements IUser {
   @Prop()
   password: string;
 
+  @Prop()
+  role: string;
+
   //relacion con entidad cart. cada user tiene un unico cart asociado
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Cart' })
   cart?: Cart;

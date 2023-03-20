@@ -72,9 +72,19 @@ export class AuthService {
     }
 
     //sign token
-    const payload = {id: user._id, email: user.email}
-    const token = this.jwtAuthService.sign(payload)
+    const payload = { id: user._id, email: user.email };
+    const token = this.jwtAuthService.sign(payload);
 
     return { user, token, message: 'User successfully auth' };
+  }
+
+  async validateUser(email: string, password: string): Promise<any> {
+    const user = await this.userService.findOneByEmail(email);
+    
+    if (user && user.password === password) {
+      const { password, ...result } = user;
+      return result;
+    }
+    return null;
   }
 }

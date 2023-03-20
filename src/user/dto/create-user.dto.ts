@@ -4,35 +4,40 @@ import {
   IsNotEmpty,
   IsMongoId,
   IsEmail,
-  IsStrongPassword,
   IsOptional,
+  IsIn,
 } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { ICartDocument } from 'src/cart/schema/cart.schema';
 
-export class CreateUserDto implements IUser{
-    @ApiProperty()
-    @IsString()
-    @IsNotEmpty()
-    firstName: string;
+export class CreateUserDto implements IUser {
+  @ApiProperty()
+  @IsString()
+  @IsNotEmpty()
+  firstName: string;
 
-    @ApiProperty()
-    @IsString()
-    @IsNotEmpty()
-    lastName: string;
+  @ApiProperty()
+  @IsString()
+  @IsNotEmpty()
+  lastName: string;
 
-    @ApiProperty()
-    @IsEmail()
-    @IsNotEmpty()
-    email: string;
+  @ApiProperty()
+  @IsEmail()
+  @IsNotEmpty()
+  email: string;
 
-    @ApiProperty()
-    //@IsStrongPassword()
-    @IsNotEmpty()
-    password: string;
+  @ApiProperty()
+  @IsNotEmpty()
+  password: string;
 
-    @ApiProperty()
-    @IsMongoId()
-    @IsOptional()
-    cart?: ICartDocument['_id'];
+  @ApiProperty()
+  @IsString()
+  @IsIn(['admin', 'client'])
+  @IsNotEmpty()
+  role: string;
+
+  @ApiProperty()
+  @IsMongoId()
+  @IsOptional()
+  cart?: ICartDocument['_id'];
 }

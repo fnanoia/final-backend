@@ -13,6 +13,7 @@ async function bootstrap() {
 
   //swagger documentation
   const config = new DocumentBuilder()
+    .addBearerAuth()
     .setTitle('API Documentation')
     .setVersion('1.0')
     .build();
