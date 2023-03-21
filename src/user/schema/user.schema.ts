@@ -1,6 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { HydratedDocument } from 'mongoose';
 import { Cart } from 'src/cart/schema/cart.schema';
+import { Role } from 'src/roles/role.enum';
 import { IUser } from '../interface/user.interface';
 
 export type UserDocument = HydratedDocument<User>;
@@ -21,7 +22,7 @@ export class User implements IUser {
   password: string;
 
   @Prop()
-  role: string;
+  role: Role;
 
   //relacion con entidad cart. cada user tiene un unico cart asociado
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Cart' })

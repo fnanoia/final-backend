@@ -8,13 +8,17 @@ import {
   Put,
   UseGuards,
 } from '@nestjs/common';
+import { ApiBearerAuth } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+import { Role } from 'src/roles/role.enum';
+import { Roles } from 'src/roles/roles.decorator';
 import { CartService } from './cart.service';
 import { CreateCartDto } from './dto/create-cart.dto';
 import { UpdateCartDto } from './dto/update-cart.dto';
 
 //Token required
 @UseGuards(JwtAuthGuard)
+@ApiBearerAuth()
 @Controller('cart')
 export class CartController {
   constructor(private readonly cartService: CartService) {}
@@ -40,6 +44,7 @@ export class CartController {
   }
 
   @Delete(':id')
+  @Roles(Role.ADMIN)
   deleteOne(@Param('id') id: string) {
     return this.cartService.deleteOne(id);
   }

@@ -18,6 +18,8 @@ import { AuthModule } from './auth/auth.module';
 import { RoleMiddleware } from './middlewares/role.middleware';
 import { UserController } from './user/user.controller';
 import { ProductController } from './product/product.controller';
+import { APP_GUARD } from '@nestjs/core';
+import { RolesGuard } from './roles/roles.guard';
 
 @Module({
   imports: [
@@ -41,8 +43,16 @@ import { ProductController } from './product/product.controller';
     AuthModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: APP_GUARD,
+      useClass: RolesGuard,
+    },
+  ],
 })
+export class AppModule {}
+/*
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     consumer
@@ -55,3 +65,4 @@ export class AppModule implements NestModule {
       .forRoutes(UserController);
   }
 }
+*/

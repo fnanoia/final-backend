@@ -9,6 +9,7 @@ import {
 } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { ICartDocument } from 'src/cart/schema/cart.schema';
+import { Role } from 'src/roles/role.enum';
 
 export class CreateUserDto implements IUser {
   @ApiProperty()
@@ -34,7 +35,7 @@ export class CreateUserDto implements IUser {
   @IsString()
   @IsIn(['admin', 'client'])
   @IsNotEmpty()
-  role: string;
+  role: Role;
 
   @ApiProperty()
   @IsMongoId()

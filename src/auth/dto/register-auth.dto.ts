@@ -2,6 +2,7 @@ import { PartialType } from '@nestjs/swagger';
 import { IsNotEmpty, IsEmail, IsString, IsIn } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { CreateUserDto } from 'src/user/dto/create-user.dto';
+import { Role } from 'src/roles/role.enum';
 
 export class RegisterAuthDto extends PartialType(CreateUserDto) {
   @ApiProperty()
@@ -27,5 +28,5 @@ export class RegisterAuthDto extends PartialType(CreateUserDto) {
   @IsString()
   @IsIn(['admin', 'client'])
   @IsNotEmpty()
-  role: string;
+  role: Role;
 }
