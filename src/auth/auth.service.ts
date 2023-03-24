@@ -78,6 +78,7 @@ export class AuthService {
     return { user, token, message: 'User successfully auth' };
   }
 
+  //passport methods
   async validateUser(email: string, password: string): Promise<any> {
     const user = await this.userService.findOneByEmail(email);
     

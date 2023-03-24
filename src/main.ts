@@ -3,7 +3,7 @@ import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
-import { SERVER_PORT } from './config/constants';
+import { NODE_ENV, SERVER_PORT } from './config/constants';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -28,5 +28,6 @@ async function bootstrap() {
 
   await app.listen(port);
   console.log(`listening on port ${await app.getUrl()}`);
+  console.log(NODE_ENV)
 }
 bootstrap();
