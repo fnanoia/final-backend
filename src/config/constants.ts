@@ -1,6 +1,6 @@
 export const NODE_ENV = process.env.NODE_ENV;
 
-export const SERVER_PORT = 'SERVER_PORT';
+export const PORT = process.env.PORT;
 
 export const DB_URI = 'DB_URI';
 export const DB_URI_PROD = 'DB_URI_PROD';
