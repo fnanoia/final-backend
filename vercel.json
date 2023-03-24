@@ -1,0 +1,28 @@
+{
+  "version": 2,
+  "env": {
+    "SERVER_PORT": "8080",
+
+    "DB_URI": "mongodb+srv://fnanoia:HhbPWwvPWWgVyW1P@cluster0.ipvsy.mongodb.net/final_backend?retryWrites=true&w=majority",
+    "DB_URI_PROD": "mongodb+srv://fnanoia:HhbPWwvPWWgVyW1P@cluster0.ipvsy.mongodb.net/final_backend_prod?retryWrites=true&w=majority",
+    "DB_NAME": "final_backend",
+
+    "JWT_SECRET": "ASLDH2IOU3HIUASHD879Q7H23E8H",
+
+    "ADMIN_EMAIL": "semillatattoo@gmail.com",
+    "ADMIN_PWD": "zhprtezsdybwgxff"
+  },
+  "builds": [
+    {
+      "src": "src/main.ts",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "src/main.ts",
+      "methods": ["GET", "POST", "PUT", "DELETE"]
+    }
+  ]
+}
