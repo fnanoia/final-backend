@@ -28,6 +28,5 @@ async function bootstrap() {
 
   await app.listen(port);
   console.log(`listening on port ${await app.getUrl()}`);
-  console.log(NODE_ENV)
 }
 bootstrap();

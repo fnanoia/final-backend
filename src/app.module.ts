@@ -12,6 +12,7 @@ import { BcryptModule } from './bcrypt/bcrypt.module';
 import { AuthModule } from './auth/auth.module';
 import { APP_GUARD } from '@nestjs/core';
 import { RolesGuard } from './roles/roles.guard';
+import { MailModule } from './mail/mail.module';
 
 @Module({
   imports: [
@@ -22,9 +23,10 @@ import { RolesGuard } from './roles/roles.guard';
     MongooseModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: async (configService: ConfigService) => ({
-        uri: NODE_ENV? configService.get<string>(DB_URI_PROD) : configService.get<string>(DB_URI),
+        uri: NODE_ENV
+          ? configService.get<string>(DB_URI_PROD)
+          : configService.get<string>(DB_URI),
       }),
-      //agregar modulos de entidades
       inject: [ConfigService],
     }),
     UserModule,
@@ -33,6 +35,8 @@ import { RolesGuard } from './roles/roles.guard';
     OrderModule,
     BcryptModule,
     AuthModule,
+    MailModule,
+    
   ],
   controllers: [AppController],
   providers: [

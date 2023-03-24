@@ -7,6 +7,7 @@ import {
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { BcryptService } from 'src/bcrypt/bcrypt.service';
+import { MailService } from 'src/mail/mail.service';
 import { UserService } from 'src/user/user.service';
 import { LoginAuthDto } from './dto/login-auth.dto';
 import { RegisterAuthDto } from './dto/register-auth.dto';
@@ -16,7 +17,10 @@ export class AuthService {
   @Inject(forwardRef(() => UserService)) private userService: UserService;
   @Inject(forwardRef(() => BcryptService)) private bcryptService: BcryptService;
 
-  constructor(private jwtAuthService: JwtService) {}
+  constructor(
+    private jwtAuthService: JwtService,
+    private mailService: MailService,
+  ) {}
 
   async register(registerAuthDto: RegisterAuthDto) {
     try {
@@ -30,12 +34,16 @@ export class AuthService {
         ...registerAuthDto,
         password,
       });
-      return user;
+
+      //send mail to user registered
+      const mail = await this.mailService.mailToUser(user.user.email)
+
+      return { user, mail };
     } catch (error: any) {
       throw new HttpException(
         {
           status: HttpStatus.BAD_REQUEST,
-          error: 'Error creating user',
+          error: 'Error creating user in auth',
         },
         HttpStatus.BAD_REQUEST,
         { cause: error },
@@ -81,7 +89,7 @@ export class AuthService {
   //passport methods
   async validateUser(email: string, password: string): Promise<any> {
     const user = await this.userService.findOneByEmail(email);
-    
+
     if (user && user.password === password) {
       const { password, ...result } = user;
       return result;

@@ -1,8 +1,6 @@
 import {
-  forwardRef,
   HttpException,
   HttpStatus,
-  Inject,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
@@ -19,6 +17,7 @@ export class UserService {
   async create(createUserDto: CreateUserDto) {
     try {
       const user = await this.userModel.create(createUserDto);
+
       return { user, message: 'User created successfully' };
     } catch (error: any) {
       throw new HttpException(
@@ -35,6 +34,7 @@ export class UserService {
   async findAll() {
     try {
       const users = await this.userModel.find();
+      
       return users;
     } catch (error: any) {
       throw new HttpException(

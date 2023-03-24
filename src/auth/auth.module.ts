@@ -8,6 +8,7 @@ import { JWT_SECRET } from 'src/config/constants';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { PassportModule } from '@nestjs/passport';
 import { LocalStrategy } from './strategies/local.strategy';
+import { MailModule } from 'src/mail/mail.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { LocalStrategy } from './strategies/local.strategy';
       signOptions: { expiresIn: '1h' },
     }),
     PassportModule,
+    MailModule
   ],
   controllers: [AuthController],
   providers: [AuthService, JwtStrategy, LocalStrategy],
