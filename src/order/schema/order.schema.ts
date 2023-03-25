@@ -12,9 +12,6 @@ export class Order implements IOrder {
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
   user: User;
 
-  // @Prop()
-  //order_number: string;
-
   @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Product' }] })
   products: Product[];
 }

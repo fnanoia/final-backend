@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { createTransport } from 'nodemailer';
-import { ADMIN_EMAIL } from 'src/config/constants';
 
 @Injectable()
 export class MailService {
@@ -8,8 +7,8 @@ export class MailService {
     host: 'smtp.gmail.com',
     port: 587,
     auth: {
-      user: 'semillatattoo@gmail.com',
-      pass: 'zhprtezsdybwgxff',
+      user: process.env.ADMIN_EMAIL,
+      pass: process.env.ADMIN_PWD,
     },
     secure: false,
     tls: {
@@ -20,7 +19,7 @@ export class MailService {
   async mailToUser(email: string) {
     await this.transport.sendMail({
       to: email,
-      from: ADMIN_EMAIL,
+      from: process.env.ADMIN_EMAIL,
       subject: 'Account registered',
       html: `<h1>Welcome to Nestjs app, your account have been successfully registerd!</h1>`,
     });

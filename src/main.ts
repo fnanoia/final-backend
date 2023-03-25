@@ -24,7 +24,6 @@ async function bootstrap() {
 
   //export config values and define port
   const configService = app.get(ConfigService);
-  //const port = +configService.get<number>(PORT) || 3000;
 
   await app.listen(configService.get<number>(PORT) || 3000);
   console.log(`server listening`);

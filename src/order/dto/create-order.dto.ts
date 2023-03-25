@@ -10,13 +10,7 @@ export class CreateOrderDto implements IOrder {
   @IsNotEmpty()
   user: IUserDocument['_id'];
 
-  // @ApiProperty()
-  //@IsString()
-  // @IsNotEmpty()
-  //order_number: string;
-
   @ApiProperty()
   @IsNotEmpty()
-  //@IsMongoId()
   products: IProductDocument['_id'][];
 }

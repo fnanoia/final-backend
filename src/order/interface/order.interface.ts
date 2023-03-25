@@ -3,6 +3,5 @@ import { IProductDocument } from '../../product/schema/product.schema'
 
 export interface IOrder {
   user: IUserDocument['_id']
-  //order_number: string;
   products: IProductDocument['_id']
 }
