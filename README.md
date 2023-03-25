@@ -22,9 +22,14 @@
   <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
   [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
+## Author
+
+Francisco Nanoia 
+<br>[![LinkedIn][linkedin-shield]][linkedin-url-fran]  [![GitHub][github-shield]][github-url-fran]
+
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+[Nest](https://github.com/nestjs/nest) API developed as a final project for Coderhouse "Backend development" course.
 
 ## Installation
 
@@ -53,7 +58,17 @@ https://final-backend-nest.up.railway.app/api/docs/
 
 ## Architecture
 
+![nestjs](NESTJSAPI.png "Api")
 
-## ERD. Data workflow
+## Data workflow
+
+![nestjs](NESTJSAPIDATAWORKFLOW.png "ERD")
+
+
+<!-- LINKS -->
+[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
+[linkedin-url-fran]: https://linkedin.com/in/fnanoia
+[github-shield]: https://img.shields.io/badge/Github-61DAFB.svg?style=for-the-badge&logo=github&logoColor=FFFFFF
+[github-url-fran]: https://github.com/fnanoia
 
 
