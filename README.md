@@ -71,3 +71,11 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 ## License
 
 Nest is [MIT licensed](LICENSE).
+
+## Deploy
+
+https://final-backend-nest.up.railway.app/
+
+## Swagger Docs
+
+https://final-backend-nest.up.railway.app/api/docs/
