@@ -23,9 +23,9 @@ import { MailModule } from './mail/mail.module';
     MongooseModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: async (configService: ConfigService) => ({
-        uri: NODE_ENV
-          ? configService.get<string>(DB_URI_PROD)
-          : configService.get<string>(DB_URI),
+        uri:
+          //NODE_ENV  ? configService.get<string>(DB_URI_PROD)          :
+          configService.get<string>(DB_URI),
       }),
       inject: [ConfigService],
     }),
@@ -36,7 +36,6 @@ import { MailModule } from './mail/mail.module';
     BcryptModule,
     AuthModule,
     MailModule,
-    
   ],
   controllers: [AppController],
   providers: [
